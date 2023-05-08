@@ -1,0 +1,246 @@
+{% extends 'template.html' %}
+{% block title %}設定{% endblock %}
+{% block body %}
+<style>
+  .container {
+  width: 500px;
+  margin: 0 auto;
+}
+
+form {
+  padding: 15px;
+  background-color: #f2f2f2;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #999;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.form-control {
+  padding: 7px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  box-shadow: 0 0 5px #999;
+}
+
+input[type="text"],
+select {
+  width: 96%;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+input[type="radio"] {
+  margin-right: 10px;
+}
+
+button[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  background-color: #4CAF50;
+  color: #fff;
+  border: 0;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+input[type="radio"] {
+  display: none;
+}
+
+input[type="radio"] + label {
+  cursor: pointer;
+  display: inline-block;
+  margin-right: 20px;
+}
+
+input[type="radio"]:checked + label {
+  color: green;
+}
+input[type="radio"] {
+  display: none;
+}
+
+input[type="radio"] + label {
+  background-color: #ddd;
+  border-radius: 50%;
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+  position: relative;
+}
+
+input[type="radio"]:checked + label {
+  background-color: green;
+}
+
+input[type="radio"]:focus + label {
+  box-shadow: 0 0 0 3px #aaa;
+}
+
+.switch {
+position: relative;
+display: inline-block;
+width: 60px;
+height: 34px;
+}
+
+.switch input {
+opacity: 0;
+width: 0;
+height: 0;
+}
+
+.slider {
+position: absolute;
+cursor: pointer;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-color: #ccc;
+-webkit-transition: .4s;
+transition: .4s;
+}
+
+.slider:before {
+position: absolute;
+content: "";
+height: 26px;
+width: 26px;
+left: 4px;
+bottom: 4px;
+background-color: white;
+-webkit-transition: .4s;
+transition: .4s;
+}
+
+input:checked + .slider {
+background-color: #2196F3;
+}
+
+input:focus + .slider {
+box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+-webkit-transform: translateX(26px);
+-ms-transform: translateX(26px);
+transform: translateX(26px);
+}
+
+.slider.round {
+border-radius: 34px;
+}
+
+.slider.round:before {
+border-radius: 50%;
+}
+a {
+  display: inline-block;
+  padding: 0.35em 1.2em;
+  border: 0.1em solid #FFFFFF;
+  margin: 0 0.3em 0.3em 0;
+  border-radius: 0.12em;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-size: 1em;
+  font-weight: 300;
+  text-align: center;
+  transition: all 0.2s;
+}
+
+a:hover {
+  color: #FFFFFF;
+  background-color: #357edd;
+}
+a.button {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: #357edd;
+  color: #fff;
+  border-radius: 50px;
+  text-decoration: none;
+  font-size: 16px;
+  transition: all 0.2s ease-in-out;
+}
+
+a.button:hover {
+  background-color: #2962ff;
+  cursor: pointer;
+}
+
+</style>
+<div class="container">
+  <h1 style="text-align: center;">設定</h1>
+  <form action="/option" method="post">
+    <div class="form-group">
+      <label for="name">赤ちゃんのお名前</label>
+      <div class="form-control">
+        <input type="text" id="name" name="baby_name" value="{{ baby_name }}">
+        
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="email-setting">メール送信設定:</label>
+      <label class="switch">
+               <input type="checkbox" id="email-setting" name="email_valid" value="1" {{ email_valid == '1' and 'checked' or '' }}>
+
+        <span class="slider round"></span>
+      </label>
+    </div>
+    <div class="form-group">
+      <label for="email">メール送信先</label>
+      <div class="form-control">
+        <input type="email" id="email" name="email" value="{{ email }}">
+        
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="birthdate">誕生日設定(未実装)</label>
+      <div class="form-control">
+        <select name="year" id="year">
+          <option value="{{year}}">西暦</option>
+          {% for i in range(2000, 2023) %}
+            <option value="{{ i }}" {{ 'selected' if i == year }}>{{ i }}</option>
+          {% endfor %}
+        </select>
+        <select name="month" id="month">
+          <option value="{{month}}">月</option>
+          {% for i in range(1, 13) %}
+            <option value="{{ i }}" {{ 'selected' if i == month }}>{{ i }}</option>
+          {% endfor %}
+        </select>
+        <select name="day" id="day">
+          <option value="{{day}}">日</option>
+          {% for i in range(1, 32) %}
+            <option value="{{ i }}" {{ 'selected' if i == day }}>{{ i }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+    <div style="text-align:center">
+      <input type="submit" value="変更" class="button">
+    </div>
+    
+    
+  </form>
+</div>
+
+  {% endblock %}

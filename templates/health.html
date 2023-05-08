@@ -1,0 +1,26 @@
+{% extends "template.html" %}
+
+{% block title %}健康管理{% endblock %}
+
+{% block body %}
+<style>
+    h1{
+        text-align: center;
+        font-size: 50px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+    img{
+        width:30%
+    }
+</style>
+<h1>健康管理</h1>
+<img src="src/calendar.svg">
+<img src="src/vaccine.png">
+<img src="src/height.png">
+<br>
+<br>
+<br>
+
+{% include "button.html" %}
+{% endblock %}
